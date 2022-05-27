@@ -55,7 +55,7 @@ exports.createNewTour = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      status: 'bad request',
+      status: 'fail',
       message: err
     });
   }
