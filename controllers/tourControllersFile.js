@@ -88,10 +88,6 @@ exports.createNewTour = (req, res) => {
   //res.send('Data Recieved😍');
 };
 
-exports.updateTest = () => {
-  console.log('hi');
-};
-
 exports.updateTour = (req, res) => {
   //___THE UPDATE LOGIC IS NOT IMPLEMENTED HERE__________________________//
   //___Here it just shows how a PATCH Request is handled_________//
