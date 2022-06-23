@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     required: [true, 'A User must have a name'],
     trim: true,
     maxLength: [40, "A user's name must have more or equal to 40 characters"],
-    minLength: [10, "A user's name must have les or equal then 10 characters"]
+    minLength: [1, "A user's name must have les or equal then 1 characters"]
   },
   email: {
     type: String,
@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
     unique: true,
     trim: true,
     maxLength: [60, "A user's email must have more or equal to 60 characters"],
-    minLength: [10, "A user's name must have les or equal then 10 characters"],
+    minLength: [5, "A user's name must have les or equal then 5 characters"],
     lowercase: true,
     validate: [validator.isEmail, 'Email Address is']
   },
