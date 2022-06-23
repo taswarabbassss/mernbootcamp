@@ -16,17 +16,22 @@ const options = {
   useFindAndModify: false
 };
 
-mongoose
-  .connect(DB, options)
-  .then(conn => {
-    console.log('Database Connected Successfully!😀😀');
-  })
-  .catch(e => console.log(e));
+mongoose.connect(DB, options).then(conn => {
+  console.log('Database Connected Successfully!😀😀');
+});
 
 const port = process.env.PORT || 3000;
 hostname = '127.0.0.1';
 
 //4) START OF SERVER
-app.listen(port, hostname, () => {
+const server = app.listen(port, hostname, () => {
   console.log(`App is running on port ${port}`);
+});
+
+process.on('unhandledRejection', err => {
+  console.log(err.name, err.message);
+  console.log('UNHANDLED REJECTION!  💥 Shutting down.... ');
+  server.close(() => {
+    process.exit(1);
+  });
 });
