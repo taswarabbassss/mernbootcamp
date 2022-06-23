@@ -38,8 +38,13 @@ module.exports = (err, req, res, next) => {
 
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
-    let error = { ...err };
+  } else {
+    //if (process.env.NODE_ENV === 'production')
+    console.log(`ERROR SECOND IS : ${err.name}`);
+    //MAKING DEEP COPY OF ERROR OBJECT
+    let error = JSON.parse(JSON.stringify(err));
+    // let error = { ...err };  THIS IS MAKING JUST SHALLOW COPY OF ERROR OBJECT
+    console.log(`ERROR FIRST IS : ${error.name}`);
     if (error.name === 'CastError') error = handleCastErrorDB(error);
 
     sendErrorProd(error, res);
