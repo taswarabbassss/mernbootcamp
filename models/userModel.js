@@ -63,6 +63,7 @@ userSchema.pre('save', async function(next) {
 });
 
 userSchema.pre('save', function(next) {
+  // 3) Update changedPasswordAt property for the current user    authController ==> resetPassword Function's Step 3
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;
