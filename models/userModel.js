@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true, 'Please provide a Password'],
     minLength: 8,
-    Selection: false
+    select: false
   },
   passwordConfirm: {
     type: String,
@@ -48,7 +48,12 @@ const userSchema = mongoose.Schema({
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false
+  }
 });
 
 userSchema.pre('save', async function(next) {
