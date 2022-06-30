@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-
+const hpp = require('hpp');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -46,7 +46,22 @@ app.use(express.json({ limit: '10kb' })); //Limiting amount of Data that comes i
 app.use(mongoSanitize());
 
 // Data Sanitization against XSS
-app.use(xss())
+
+app.use(xss());
+
+// Prevents Parameter Pollution
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsQuantity',
+      'ratingsAverage',
+      'maxGroupSize',
+      'difficulty',
+      'price'
+    ]
+  })
+);
 
 // v) Serving Static Files
 
