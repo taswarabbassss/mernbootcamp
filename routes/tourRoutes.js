@@ -1,7 +1,10 @@
 const express = require('express');
 const tourController = require('../controllers/tourController');
-const router = express.Router();
+
 const authController = require('../controllers/authController');
+
+// Router
+const router = express.Router();
 //Create a checkBody middleware
 //if the request contain name and price propery
 //if not return 400 (bad request)

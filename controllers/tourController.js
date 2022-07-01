@@ -3,6 +3,8 @@ const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+
+// Middlewares
 exports.aliasTopTours = (req, res, next) => {
   req.query.limit = '5';
   req.query.sort = '-ratingsAverage,price';
@@ -12,7 +14,7 @@ exports.aliasTopTours = (req, res, next) => {
   next();
 };
 
-//Router Handlers or Controllers
+//Route Handlers or Controllers or Middlewares
 exports.getAllTours = catchAsync(async (req, res, next) => {
   // EXECUTE QUERY
   const features = new APIFeatures(Tour.find(), req.query)
