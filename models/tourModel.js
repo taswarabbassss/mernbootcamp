@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 // const validator = require('validator');
 
-const User = require('./userModel');
+// const User = require('./userModel');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -97,7 +97,12 @@ const tourSchema = new mongoose.Schema(
         day: Number
       }
     ],
-    guides: Array
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ]
   },
   {
     toJSON: { virtuals: true },
@@ -115,14 +120,14 @@ tourSchema.pre('save', function(next) {
   next();
 });
 
-// Middleware for guides array: To fetch the users data from users collection to tours Collection by their ID's
+// // Middleware for Embedding guides array: To fetch the users data from users collection to tours Collection by their ID's
 
-tourSchema.pre('save', async function(next) {
-  const guidesPromise = this.guides.map(async id => await User.findById(id));
-  this.guides = await Promise.all(guidesPromise);
+// tourSchema.pre('save', async function(next) {
+//   const guidesPromise = this.guides.map(async id => await User.findById(id));
+//   this.guides = await Promise.all(guidesPromise);
 
-  next();
-});
+//   next();
+// });
 
 // tourSchema.pre('save', function(next) {
 //   console.log('will save document...');
