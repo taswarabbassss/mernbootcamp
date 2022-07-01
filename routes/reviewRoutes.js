@@ -4,7 +4,12 @@ const reviewController = require('./../controllers/reviewController');
 const authController = require('./../controllers/authController');
 
 // Router
-const router = express.Router();
+const router = express.Router({ mergeParams: true});
+
+// This Router now can handle both routes below
+//    1) POST / tours/14342/reviews
+//    2) POST / reviews
+
 router
   .route('/')
   .get(reviewController.getAllReviews)
