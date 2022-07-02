@@ -4,7 +4,7 @@ const reviewController = require('./../controllers/reviewController');
 const authController = require('./../controllers/authController');
 
 // Router
-const router = express.Router({ mergeParams: true});
+const router = express.Router({ mergeParams: true });
 
 // This Router now can handle both routes below
 //    1) POST / tours/14342/reviews
@@ -19,4 +19,5 @@ router
     reviewController.createNewReview
   );
 
+router.route('/:id').delete(reviewController.deleteReview);
 module.exports = router;
