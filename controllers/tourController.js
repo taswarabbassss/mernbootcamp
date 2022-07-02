@@ -20,27 +20,6 @@ exports.createNewTour = Factory.createOne(Tour);
 exports.deleteTour = Factory.deleteOne(Tour);
 exports.updateTour = Factory.updateOne(Tour);
 
-// const query = Tour.find()
-//   .where('duration')
-//   .equals(5)
-//   .where('difficulty')
-//   .equals('easy');
-
-// exports.deleteTour = catchAsync(async (req, res, next) => {
-//   const tour = await Tour.findByIdAndDelete(req.params.id);
-
-//   if (!tour) {
-//     return next(new AppError('No tour found with this ID', 404));
-//   }
-
-//   res.status(204).json({
-//     status: 'success',
-//     data: tour
-//   });
-// });
-
-//res.send('Data Recieved😍');
-
 // AGGREGATION PIPLINE METHOD
 exports.getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
@@ -131,6 +110,27 @@ exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+// const query = Tour.find()
+//   .where('duration')
+//   .equals(5)
+//   .where('difficulty')
+//   .equals('easy');
+
+// exports.deleteTour = catchAsync(async (req, res, next) => {
+//   const tour = await Tour.findByIdAndDelete(req.params.id);
+
+//   if (!tour) {
+//     return next(new AppError('No tour found with this ID', 404));
+//   }
+
+//   res.status(204).json({
+//     status: 'success',
+//     data: tour
+//   });
+// });
+
+//res.send('Data Recieved😍');
 
 //ROUTER HANDLER GETALLTOURS
 //WITHOUT APIFEATURES CLASS
