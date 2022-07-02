@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const Factory = require('./handlerFactory');
+
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach(el => {
@@ -13,24 +14,6 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 //USER HANDLERS
-exports.getAllUsers = catchAsync(async (req, res) => {
-  const users = await User.find();
-
-  // const query = Tour.find()
-  //   .where('duration')
-  //   .equals(5)
-  //  / .where('difficulty')
-  //   .equals('easy');
-
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users: users
-    }
-  });
-});
-
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
@@ -68,20 +51,23 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined'
-  });
-};
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'This route is not yet defined'
+    message:
+      'This route is not yet defined, Please Use /signUp to Create a user  '
   });
 };
 
+exports.getAllUsers = Factory.getAll(User);
+exports.getUser = Factory.getOne(User);
 // Do Not update the passwords with this route
-exports.createUser = Factory.createOne(User);
 exports.updateUser = Factory.updateOne(User);
 exports.deleteUser = Factory.deleteOne(User);
+exports.createUser = Factory.createOne(User);
+
+// const query = Tour.find()
+//   .where('duration')
+//   .equals(5)
+//  / .where('difficulty')
+//   .equals('easy');
