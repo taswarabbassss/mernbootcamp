@@ -82,5 +82,6 @@ exports.createUser = (req, res) => {
 };
 
 // Do Not update the passwords with this route
+exports.createUser = Factory.createOne(User);
 exports.updateUser = Factory.updateOne(User);
 exports.deleteUser = Factory.deleteOne(User);
