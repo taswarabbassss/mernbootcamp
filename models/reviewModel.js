@@ -72,6 +72,9 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
   }
 };
 
+// A review can be posted by only a single user on a single tour
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 reviewSchema.post('save', function() {
   // this points to the current review and constructor points to the Model (Review) which is creating this current review
 
