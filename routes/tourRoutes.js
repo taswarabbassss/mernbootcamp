@@ -24,6 +24,12 @@ router
     tourController.getMonthlyPlan
   );
 
+router
+  .route('/tour-within/:distance/center/:latlng/unit/:unit')
+  .get(tourController.getToursWithin);
+//  /tour-within?distance=233&center=-40,25&unit=mi
+//  /tour-within/235/center/-50,90/unit/mi
+
 // router.param('id', tourControllers.checkId);
 router
   .route('/')
