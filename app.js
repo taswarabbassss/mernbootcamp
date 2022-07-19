@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const { del } = require('express/lib/application');
 const res = require('express/lib/response');
@@ -19,7 +20,13 @@ const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
 //1) GLOBAL MIDDLEWARES
+
+// v) Serving Static Files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // i) Set Security HTTP headers
 
@@ -66,10 +73,6 @@ app.use(
   })
 );
 
-// v) Serving Static Files
-
-app.use(express.static(`${__dirname}/public`));
-
 // vi) A Test Middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -78,6 +81,12 @@ app.use((req, res, next) => {
 });
 
 // 2)ROUTE HANDLERS
+app.get('/', (req, res) => {
+  res.status(200).render('base', {
+    tour: 'The Forest Hiker',
+    user: 'Tasawar'
+  });
+});
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
