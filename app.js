@@ -10,6 +10,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const cookieParser = require('cookie-parser');
 
 const req = require('express/lib/request');
 
@@ -31,7 +32,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // i) Set Security HTTP headers
 
-app.use(helmet());
+// app.use(helmet());
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       scriptSrc: ["'self'", 'unpkg.com'],
+//       styleSrc: ["'self'", 'cdnjs.cloudflare.com']
+//       // fontSrc: ["'self'", "maxcdn.bootstrapcdn.com"],
+//     }
+//   })
+// );
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'", 'http://127.0.0.1:3000/*'],
+        baseUri: ["'self'"],
+        fontSrc: ["'self'", 'https:', 'data:'],
+        scriptSrc: [
+          "'self'",
+          'https://*.stripe.com',
+          'https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js'
+        ],
+        frameSrc: ["'self'", 'https://*.stripe.com'],
+        objectSrc: ["'none'"],
+        styleSrc: ["'self'", 'https:', "'unsafe-inline'"]
+      }
+    }
+  })
+);
 
 // ii) Development loggin
 
@@ -51,6 +82,7 @@ app.use('/api', limiter);
 // iv) Body parser, reading data from body into req.body
 
 app.use(express.json({ limit: '10kb' })); //Limiting amount of Data that comes in the body
+app.use(cookieParser());
 
 // Data Sanitization against NoSQL query injection
 
@@ -77,7 +109,7 @@ app.use(
 // vi) A Test Middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  // console.log(req.headers);
+  console.log(req.cookies);
   next();
 });
 
