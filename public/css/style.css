@@ -149,6 +149,7 @@ body {
 .heading-primary span,
 .heading-tertirary span {
   padding: 1rem 1.5rem;
+  
   line-height: 1;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -1097,7 +1098,6 @@ body {
   flex-direction: column;
 }
 .card__header {
-  border: 5px solid red;
   position: relative;
 }
 .card__picture {
@@ -1127,7 +1127,7 @@ body {
   width: 100%;
 }
 .card__details {
-  display: grid;
+  display:grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 1.75rem;
   grid-column-gap: 2rem;
