@@ -1097,6 +1097,7 @@ body {
   flex-direction: column;
 }
 .card__header {
+  border: 5px solid red;
   position: relative;
 }
 .card__picture {
