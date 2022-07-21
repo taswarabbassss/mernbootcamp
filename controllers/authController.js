@@ -86,7 +86,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-  } else if (req.cookies.jwt) {
+  } else if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
     token = req.cookies.jwt;
   }
 
@@ -117,6 +117,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // GRANT ACCES TO PROTECTED ROUTE
   req.user = currentUser; // We passed currentUser to req object so that data will be available in all next middle wares.
+  res.locals.user = currentUser; // To use the CurrentUser's Data in Templates
   next();
 });
 
@@ -142,7 +143,7 @@ exports.isLoggedIn = async (req, res, next) => {
       }
 
       // THERE IS A LOGGED IN USER
-      res.locals.user = currentUser;
+      res.locals.user = currentUser; // To use the Current User's Data in Template
       return next();
     }
   } catch (err) {
