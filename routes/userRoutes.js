@@ -1,11 +1,14 @@
 const express = require('express');
 const { route } = require('express/lib/router');
+const multer = require('multer');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 
-//3) ROUTES
+const upload = multer({ dest: 'public/img/users' });
 
 const router = express.Router();
+
+//3) ROUTES
 router.post('/signup', authController.signUp);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
@@ -17,7 +20,7 @@ router.use(authController.protect);
 
 router.patch('/updateMyPassword', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', userController.updateMe);
+router.patch('/updateMe', upload.single('photo'), userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 
 // Now only admin can perform below tasks
