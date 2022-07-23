@@ -11197,9 +11197,8 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            console.log(data);
             url = type === 'password' ? 'http://127.0.0.1:3000/api/v1/users/updateMyPassword' : 'http://127.0.0.1:3000/api/v1/users/updateMe';
-            _context.next = 5;
+            _context.next = 4;
             return (0, _axios.default)({
               method: 'PATCH',
               url: url,
@@ -11211,27 +11210,27 @@ function () {
 
             });
 
-          case 5:
+          case 4:
             res = _context.sent;
 
             if (res.data.status === 'success') {
               (0, _alerts.showAlert)('success', "".concat(type.toUpperCase(), " updated successfully!"));
             }
 
-            _context.next = 12;
+            _context.next = 11;
             break;
 
-          case 9:
-            _context.prev = 9;
+          case 8:
+            _context.prev = 8;
             _context.t0 = _context["catch"](0);
             (0, _alerts.showAlert)('error', _context.t0.response.data.message);
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[0, 8]]);
   }));
 
   return function updateSettings(_x, _x2) {
@@ -11533,8 +11532,8 @@ if (userDataForm) userDataForm.addEventListener('submit', function (e) {
   var form = new FormData();
   form.append('name', document.getElementById('name').value);
   form.append('email', document.getElementById('email').value);
-  form.append('photo', document.getElementById('photo').files[0]);
-  console.log(form);
+  form.append('photo', document.getElementById('photo').files[0]); // console.log(form);
+
   (0, _updateSettings.updateSettings)(form, 'data');
 });
 if (userPasswordForm) userPasswordForm.addEventListener('submit',
@@ -11553,21 +11552,20 @@ function () {
             passwordCurrent = document.getElementById('password-current').value;
             password = document.getElementById('password').value;
             passwordConfirm = document.getElementById('password-confirm').value;
-            console.log('HERE');
-            _context.next = 8;
+            _context.next = 7;
             return (0, _updateSettings.updateSettings)({
               passwordCurrent: passwordCurrent,
               password: password,
               passwordConfirm: passwordConfirm
             }, 'password');
 
-          case 8:
+          case 7:
             document.querySelector('.btn--save-password').textContent = 'SAVE PASSWORD';
             document.getElementById('password-current').value = '';
             document.getElementById('password').value = '';
             document.getElementById('password-confirm').value = '';
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
