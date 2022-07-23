@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
 const pug = require('pug');
 const catchAsync = require('./catchAsync');
-const htmlToText = require('html-to-text');
+// import { htmlToText } from 'html-to-text';
+const { htmlToText } = require('html-to-text');
 
 // new Email( user, url).sendWelcome();
 
@@ -46,7 +47,9 @@ module.exports = class Email {
       to: this.to,
       subject: subject,
       html: html,
-      text: htmlToText(html)
+      text: htmlToText(html, {
+        wordwrap: 130
+      })
     };
 
     // 3) Create a transport and send Emails
