@@ -42,14 +42,18 @@ module.exports = class Email {
       }
     );
     // 2) Define Email options
+    // console.log(html);
+    const text = htmlToText(html, {
+      wordwrap: 130
+    });
+    // const text = htmlToText.fromString(html);
+    console.log(text);
     const mailOptions = {
       from: this.from,
       to: this.to,
       subject: subject,
       html: html,
-      text: htmlToText(html, {
-        wordwrap: 130
-      })
+      text: text
     };
 
     // 3) Create a transport and send Emails
@@ -59,6 +63,13 @@ module.exports = class Email {
 
   async sendWelcome() {
     await this.send('Welcome', 'Welcome to the Natours Family!');
+  }
+
+  async sendPasswordReset() {
+    await this.send(
+      'passwordReset',
+      'Your password reset token (valid for only 10 minutes)'
+    );
   }
 };
 
