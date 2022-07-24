@@ -1,3 +1,4 @@
+const nodemailerSendgrid = require('nodemailer-sendgrid');
 const nodemailer = require('nodemailer');
 const pug = require('pug');
 const catchAsync = require('./catchAsync');
@@ -15,20 +16,53 @@ module.exports = class Email {
   }
 
   newTransport() {
-    if (process.env.NODE_ENV === 'production') {
-      // SendGrid
-
-      return 1;
+    if (process.env.NODE_ENV.startsWith('p')) {
+      // sendinBlue
+      return nodemailer.createTransport({
+        host: 'smtp-relay.sendinblue.com',
+        port: '587', // here your port may vary!
+        auth: {
+          user: process.env.SENDINBLUE_USERNAME,
+          pass: process.env.SENDINBLUE_PASSWORD
+        }
+      });
     }
-    return nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD
-      }
-    });
   }
+
+  // newTransport() {
+  //   if (process.env.NODE_ENV === 'development') {
+  //     return nodemailer.createTransport(
+  //       nodemailerSendgrid({
+  //         apiKey: process.env.SENDGRID_PASSWORD
+  //       })
+  //     );
+
+  //     // return nodemailer.createTransport({
+  //     //   host: process.env.EMAIL_HOST,
+  //     //   port: process.env.EMAIL_PORT,
+  //     //   auth: {
+  //     //     user: process.env.EMAIL_USERNAME,
+  //     //     pass: process.env.EMAIL_PASSWORD
+  //     //   }
+  //     // });
+  //   }
+
+  //   // SendGrid
+  //   // return nodemailer.createTransport(
+  //   //   nodemailerSendgrid({
+  //   //     apiKey: process.env.SENDGRID_PASSWORD
+  //   //   })
+  //   // );
+
+  //   console.log(process.env.NODE_ENV);
+  //   //   return nodemailer.createTransport({
+  //   //     service: 'SendGrid',
+  //   //     auth: {
+  //   //       user: process.env.SENDGRID_USERNAME,
+  //   //       pass: process.env.SENDGRID_PASSWORD
+  //   //     }
+  //   //   });
+  // }
 
   // Send the actual email
   async send(template, subject) {

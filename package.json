@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "supervisor server.js",
-    "start:prod": "SET NODE_ENV=production && nodemon server.js",
+    "start:prod": "SET NODE_ENV=production&&supervisor server.js",
     "start:nodemon": "nodemon server.js",
     "start:prodNodemon": "SET NODE_ENV=production && nodemon server.js",
     "dev": "nodemon -L server.js",
@@ -32,6 +32,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.5",
+    "nodemailer-sendgrid": "^1.0.3",
     "nodemon": "^2.0.16",
     "pug": "^3.0.2",
     "sharp": "^0.30.7",
